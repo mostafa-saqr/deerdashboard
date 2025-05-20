@@ -1,13 +1,12 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import { theme, cacheRtl } from './theme';
+import { getTheme, cacheRtl } from './theme';
 import { CacheProvider } from '@emotion/react';
 import { Container } from '@mui/material';
 import Header from './components/layout/Header';
-import DashboardContent from './pages/DashboardContent';
-import ReportPage from './pages/ReportPage';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import AppRoutes from './routes/index';
+import { BrowserRouter } from 'react-router-dom';
 
 // Add Cairo font
 const fontStyle = document.createElement('style');
@@ -17,12 +16,15 @@ fontStyle.innerHTML = `
 document.head.appendChild(fontStyle);
 
 function App() {
+  const [mode, setMode] = useState<'light' | 'dark'>('light');
+  const theme = useMemo(() => getTheme(mode), [mode]);
+
   return (
     <CacheProvider value={cacheRtl}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <BrowserRouter>
-          <Header />
+          <Header setMode={setMode} mode={mode} />
           <Container 
             maxWidth={false} 
             sx={{ 
@@ -32,10 +34,7 @@ function App() {
               overflow: 'hidden'
             }}
           >
-            <Routes>
-              <Route path="/" element={<DashboardContent />} />
-              <Route path="/report" element={<ReportPage />} />
-            </Routes>
+            <AppRoutes />
           </Container>
         </BrowserRouter>
       </ThemeProvider>

@@ -34,7 +34,12 @@ const navLinks = [
   { label: 'الصفحة الرئيسية', path: '/' },
 ];
 
-const Header: React.FC = () => {
+type HeaderProps = {
+  setMode: (mode: 'light' | 'dark') => void;
+  mode: 'light' | 'dark';
+};
+
+const Header: React.FC<HeaderProps> = ({ setMode, mode }) => {
   const [lang, setLang] = React.useState('العربية');
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
