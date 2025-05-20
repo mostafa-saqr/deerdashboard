@@ -11,3 +11,14 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* Force AppBar to never have a left margin (RTL fix) */
+.MuiAppBar-root {
+  margin-left: 0 !important;
+}
+
+/* Force main content to never have a left margin (RTL fix) */
+.mui-fixed + main,
+.MuiBox-root[style*="margin-left"] {
+  margin-left: 0 !important;
+}
