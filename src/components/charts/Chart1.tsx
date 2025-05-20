@@ -29,8 +29,8 @@ const Chart1: React.FC = () => {
   return (
     <Paper sx={{ p: 2, height: 340, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-        <Box sx={{ width: 18, height: 18, borderRadius: '50%', border: '4px solid #4caf50', mr: 1 }} />
-        <Typography variant="h6" sx={{ fontWeight: 700 }}>
+     
+        <Typography variant="h6" sx={{ fontWeight: 700,textAlign:'left' }}>
           متوسط معالجة المكالمات وإجمالي المكالمات يوميا (اخر 7 أيام)
         </Typography>
       </Box>

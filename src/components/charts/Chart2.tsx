@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Paper, Typography, Box, FormControl, Select, MenuItem } from '@mui/material';
+import { Paper, Typography, Box} from '@mui/material';
 import { ComposedChart, Bar, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 const initialData = [
@@ -17,7 +17,7 @@ function getRandomData() {
 }
 
 const Chart2: React.FC = () => {
-  const [emp, setEmp] = React.useState('رقم الموظف');
+
   const [data, setData] = useState(initialData);
 
   useEffect(() => {
@@ -30,18 +30,12 @@ const Chart2: React.FC = () => {
   return (
     <Paper sx={{ p: 2, height: 340, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-        <Box sx={{ width: 18, height: 18, borderRadius: '50%', border: '4px solid #ff9800', mr: 1 }} />
+        
         <Typography variant="h6" sx={{ fontWeight: 700 }}>
           أكثر الأشخاص مكالمات
         </Typography>
       </Box>
-      <FormControl size="small" sx={{ mb: 1, minWidth: 120 }}>
-        <Select value={emp} onChange={e => setEmp(e.target.value)}>
-          <MenuItem value="رقم الموظف">رقم الموظف</MenuItem>
-          <MenuItem value="36771">36771</MenuItem>
-          <MenuItem value="33991">33991</MenuItem>
-        </Select>
-      </FormControl>
+  
       <ResponsiveContainer width="100%" height={220}>
         <ComposedChart data={data}>
           <CartesianGrid strokeDasharray="3 3" />

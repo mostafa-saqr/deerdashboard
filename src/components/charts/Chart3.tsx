@@ -17,7 +17,7 @@ function getRandomData() {
 }
 
 const Chart3: React.FC = () => {
-  const [country, setCountry] = React.useState('الدولة');
+
   const [data, setData] = useState(initialData);
 
   useEffect(() => {
@@ -30,17 +30,13 @@ const Chart3: React.FC = () => {
   return (
     <Paper sx={{ p: 2, height: 340, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-        <Box sx={{ width: 18, height: 18, borderRadius: '50%', border: '4px solid #3f51b5', mr: 1 }} />
+      
         <Typography variant="h6" sx={{ fontWeight: 700 }}>
           أقل الأشخاص مكالمات
         </Typography>
       </Box>
       <FormControl size="small" sx={{ mb: 1, minWidth: 120 }}>
-        <Select value={country} onChange={e => setCountry(e.target.value)}>
-          <MenuItem value="الدولة">الدولة</MenuItem>
-          <MenuItem value="السعودية">السعودية</MenuItem>
-          <MenuItem value="بغداد">بغداد</MenuItem>
-        </Select>
+   
       </FormControl>
       <ResponsiveContainer width="100%" height={220}>
         <BarChart data={data}>

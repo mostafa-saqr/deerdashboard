@@ -14,21 +14,24 @@ import {
   ListItem,
   ListItemText,
   useTheme,
-  useMediaQuery
+  useMediaQuery,
+  Badge
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import MenuIcon from '@mui/icons-material/Menu';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
 import { Link, useLocation } from 'react-router-dom';
 
 const navLinks = [
-  { label: 'التسجيلات', path: '/report' },
-  { label: 'الصفحة الرئيسية', path: '/' },
+ 
   '(التصنيفات/القنوات)',
   'الموظفين',
   'التقارير',
+  { label: 'التسجيلات', path: '/report' },
+  { label: 'الصفحة الرئيسية', path: '/' },
 ];
 
 const Header: React.FC = () => {
@@ -71,7 +74,7 @@ const Header: React.FC = () => {
   );
 
   return (
-    <Paper elevation={1} sx={{ px: { xs: 2, sm: 3 }, py: { xs: 1, sm: 1.5 }, borderRadius: 0, mb: 3 }}>
+    <Paper elevation={1} sx={{ px: { xs: 2, sm: 3 }, py: { xs: 3, sm: 3 }, borderRadius: 0, mb: 3 }}>
       <Box sx={{ 
         display: 'flex', 
         alignItems: 'center', 
@@ -82,46 +85,51 @@ const Header: React.FC = () => {
         <Box sx={{ 
           display: 'flex', 
           alignItems: 'center', 
-          gap: 1,
-          flexDirection: { xs: 'row-reverse', sm: 'row' }
+          minWidth: { xs: 250, sm: 350 },
+          gap: 1
         }}>
           {isMobile && (
             <IconButton onClick={handleDrawerToggle} sx={{ ml: 1 }}>
               <MenuIcon />
             </IconButton>
           )}
-          <Box sx={{ 
-            display: 'flex', 
-            alignItems: 'center', 
-            minWidth: { xs: 150, sm: 220 }
-          }}>
-            <Paper
-              component="form"
+          <Paper
+            component="form"
+            sx={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              borderRadius: 3, 
+              boxShadow: 0, 
+              bgcolor: '#fafbfc', 
+              pl: 1, 
+              pr: 0.5, 
+              width: { xs: 250, sm: 350 },
+              height: 48,
+              border: '1px solid #eee'
+            }}
+          >
+            <SearchIcon sx={{ color: '#a0a0b0', mr: 1 }} />
+            <InputBase 
               sx={{ 
-                display: 'flex', 
-                alignItems: 'center', 
-                borderRadius: 3, 
-                boxShadow: 0, 
-                bgcolor: '#fafbfc', 
-                pl: 1, 
-                pr: 0.5, 
-                width: { xs: 150, sm: 180 }
-              }}
-            >
-              <SearchIcon sx={{ color: '#a0a0b0', mr: 1 }} />
-              <InputBase 
-                sx={{ 
-                  flex: 1, 
-                  fontSize: { xs: 13, sm: 15 }
-                }} 
-                placeholder="Search here..." 
-                inputProps={{ 'aria-label': 'search' }} 
-              />
-              <IconButton type="submit" sx={{ p: 0.5, bgcolor: '#222', color: '#fff', ml: 1, borderRadius: 2 }}>
-                <ArrowForwardIosIcon fontSize="small" />
-              </IconButton>
-            </Paper>
-          </Box>
+                flex: 1, 
+                fontSize: { xs: 15, sm: 17 }
+              }} 
+              placeholder="Search here..." 
+              inputProps={{ 'aria-label': 'search' }} 
+            />
+          </Paper>
+          <IconButton sx={{
+            ml: 1,
+            bgcolor: '#222',
+            color: '#fff',
+            width: 44,
+            height: 44,
+            borderRadius: '50%',
+            '&:hover': { bgcolor: '#444' },
+            boxShadow: '0 2px 4px rgba(0,0,0,0.08)'
+          }}>
+            <DarkModeIcon />
+          </IconButton>
         </Box>
 
         {/* Center Nav Links - Desktop Only */}
@@ -182,23 +190,76 @@ const Header: React.FC = () => {
                 pl: 1 
               }}
               displayEmpty
+              renderValue={(selected) => (
+                <Box sx={{ display: 'flex', alignItems: 'center', flexDirection: 'row-reverse', gap: 1 }}>
+                  {selected === 'العربية' ? (
+                    <img 
+                      src="https://flagcdn.com/w20/sa.png" 
+                      width="20" 
+                      alt="KSA flag" 
+                      style={{ borderRadius: '50%', width: '20px', height: '20px', objectFit: 'cover' }}
+                    />
+                  ) : (
+                    <img 
+                      src="https://flagcdn.com/w20/us.png" 
+                      width="20" 
+                      alt="USA flag"
+                      style={{ borderRadius: '50%', width: '20px', height: '20px', objectFit: 'cover' }}
+                    />
+                  )}
+                  <span>{selected}</span>
+                </Box>
+              )}
             >
-              <MenuItem value="العربية">العربية</MenuItem>
-              <MenuItem value="English">English</MenuItem>
+              <MenuItem value="العربية" sx={{ display: 'flex', alignItems: 'center', gap: 1, flexDirection: 'row-reverse' }}>
+                العربية
+                <img 
+                  src="https://flagcdn.com/w20/sa.png" 
+                  width="20" 
+                  alt="KSA flag" 
+                  style={{ borderRadius: '50%', width: '20px', height: '20px', objectFit: 'cover' }}
+                />
+              </MenuItem>
+              <MenuItem value="English" sx={{ display: 'flex', alignItems: 'center', gap: 1, flexDirection: 'row-reverse' }}>
+                English
+                <img 
+                  src="https://flagcdn.com/w20/us.png" 
+                  width="20" 
+                  alt="USA flag"
+                  style={{ borderRadius: '50%', width: '20px', height: '20px', objectFit: 'cover' }}
+                />
+              </MenuItem>
             </Select>
           </FormControl>
           <Box sx={{ 
             display: 'flex', 
             alignItems: 'center', 
+            flexDirection: 'row-reverse',
             gap: { xs: 0.5, sm: 1 }
           }}>
-            <Avatar 
-              src="https://randomuser.me/api/portraits/men/32.jpg" 
-              sx={{ 
-                width: { xs: 32, sm: 38 }, 
-                height: { xs: 32, sm: 38 } 
-              }} 
-            />
+            <Badge
+              overlap="circular"
+              anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+              variant="dot"
+              sx={{
+                '& .MuiBadge-badge': {
+                  backgroundColor: '#44b700',
+                  width: 10,
+                  height: 10,
+                  borderRadius: '50%',
+                  border: '2px solid #fff'
+                }
+              }}
+            >
+              <Avatar 
+                src="https://randomuser.me/api/portraits/men/32.jpg" 
+                sx={{ 
+                  width: { xs: 32, sm: 38 }, 
+                  height: { xs: 32, sm: 38 } 
+                }} 
+              />
+            </Badge>
+          
             {!isMobile && (
               <Box sx={{ 
                 display: 'flex', 
@@ -209,21 +270,17 @@ const Header: React.FC = () => {
                   fontWeight: 700, 
                   fontSize: { xs: 13, sm: 15 } 
                 }}>
-                  دانيال شاووش
+                 دانا أبو شاويش
                 </Typography>
                 <Typography sx={{ 
                   fontSize: { xs: 11, sm: 12 }, 
                   color: '#888' 
                 }}>
-                  مصمم الواجهة
+           مصمم الجرافيك
                 </Typography>
               </Box>
             )}
-            <FiberManualRecordIcon sx={{ 
-              color: '#4caf50', 
-              fontSize: { xs: 14, sm: 16 }, 
-              ml: 0.5 
-            }} />
+          
           </Box>
         </Box>
       </Box>

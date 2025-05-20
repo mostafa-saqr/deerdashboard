@@ -2,6 +2,9 @@ import React, { useState, useRef } from 'react';
 import { Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Pagination, Button, IconButton } from '@mui/material';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import PaginationItem from '@mui/material/PaginationItem';
 
 // Local audio sample from public directory
 const audioSample = '/sample-voice.mp3';
@@ -113,11 +116,11 @@ const ReportPage: React.FC = () => {
  
       <Box sx={{ 
         display: 'flex', 
-        alignItems: 'center', 
-        justifyContent: 'space-between', 
+        alignItems: 'flex-end',
+        justifyContent: "flex-end",
         mb: { xs: 2, sm: 3 },
-        flexDirection: { xs: 'column', sm: 'row' },
-        gap: { xs: 2, sm: 0 }
+        flexDirection: 'column',
+        gap:2
       }}>
         <Typography 
           variant="h6" 
@@ -228,11 +231,13 @@ const ReportPage: React.FC = () => {
       }}>
         <Button 
           variant="outlined" 
-          onClick={() => setPage(p => Math.max(1, p - 1))} 
-          disabled={page === 1}
+          onClick={() => setPage(p => Math.max(1, p + 1))} 
+          disabled={page === pageCount}
           size="small"
+          startIcon={<ChevronLeftIcon />}
+          sx={{ flexDirection: 'row-reverse' }}
         >
-          السابق
+          التالي
         </Button>
         <Pagination 
           count={pageCount} 
@@ -243,14 +248,24 @@ const ReportPage: React.FC = () => {
           siblingCount={1} 
           boundaryCount={1}
           size="small"
+          dir="rtl"
+          renderItem={(item) => (
+            <PaginationItem
+              {...item}
+              {...(item.type === 'previous' && { icon: <ChevronRightIcon /> })}
+              {...(item.type === 'next' && { icon: <ChevronLeftIcon /> })}
+            />
+          )}
         />
         <Button 
           variant="outlined" 
-          onClick={() => setPage(p => Math.min(pageCount, p + 1))} 
-          disabled={page === pageCount}
+          onClick={() => setPage(p => Math.min(pageCount, p - 1))} 
+          disabled={page === 1}
           size="small"
+          endIcon={<ChevronRightIcon />}
+          sx={{ flexDirection: 'row-reverse' }}
         >
-          التالي
+          السابق
         </Button>
       </Box>
     </Box>
